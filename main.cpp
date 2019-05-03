@@ -1,8 +1,12 @@
 #include<iostream>
+#include<sstream>
+#include<string>
 using namespace std;
 
 void Ejercicio1(int a, int b);
 int* calculadoraPrimos();
+void Ejercicio2(int* arreglo, int numero);
+void freeArray(int* array);
 
 int main(){
     char respuesta = 'S';
@@ -36,6 +40,14 @@ int main(){
         case 2:
             {
                 int* arrayPrimos = calculadoraPrimos();
+                int numero = 0;
+                while(numero <= 0){
+                    cout << "Ingrese el numero: ";
+                    cin >> numero;
+                }
+                Ejercicio2(arrayPrimos, numero);
+                freeArray(arrayPrimos);
+                arrayPrimos = NULL;
                 break;
             }
     }
@@ -83,8 +95,41 @@ int* calculadoraPrimos(){
     temporal[22]=83;
     temporal[23]=89;
     temporal[24]=97;
-
-
-
-    return temporal
+    return temporal;
 }
+
+void Ejercicio2(int* arrayPrimos, int numero){
+    bool flag = false;
+    int num = numero;
+    int posicion = 0;
+    int acum = 0;
+    stringstream salida;
+    //cout << "num = " << num <<endl;
+    //cout << "arraypr = " << arrayPrimos[posicion] << endl;
+    while(!flag){
+        if ((num % arrayPrimos[posicion]) == 0){
+            acum++;
+            num = num / arrayPrimos[posicion];
+        }else{
+            if (acum != 0){
+                salida << "(" << arrayPrimos[posicion] << "^" << acum << ")";
+                if (num != 1) 
+                    salida << "*";
+            }
+            acum = 0;
+            posicion++;
+        }
+        //cout << "num = " <<num << endl;
+        //cout << "acum = " <<acum << endl;
+        if (num == 1)
+            flag = true;
+    }
+    salida << "(" << arrayPrimos[posicion] << "^" << acum << ")";
+    cout << salida.str() << endl;
+}
+
+void freeArray(int* array){
+    if (array != NULL)
+        delete[] array;
+}
+
