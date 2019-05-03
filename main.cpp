@@ -1,12 +1,14 @@
 #include<iostream>
 #include<sstream>
 #include<string>
+#include<vector>
 using namespace std;
 
 void Ejercicio1(int a, int b);
 int* calculadoraPrimos();
 void Ejercicio2(int* arreglo, int numero);
 void freeArray(int* array);
+void Ejercicio3();
 
 int main(){
     char respuesta = 'S';
@@ -48,6 +50,11 @@ int main(){
                 Ejercicio2(arrayPrimos, numero);
                 freeArray(arrayPrimos);
                 arrayPrimos = NULL;
+                break;
+            }
+        case 3:
+            {
+                Ejercicio3();
                 break;
             }
     }
@@ -104,8 +111,6 @@ void Ejercicio2(int* arrayPrimos, int numero){
     int posicion = 0;
     int acum = 0;
     stringstream salida;
-    //cout << "num = " << num <<endl;
-    //cout << "arraypr = " << arrayPrimos[posicion] << endl;
     while(!flag){
         if ((num % arrayPrimos[posicion]) == 0){
             acum++;
@@ -119,8 +124,6 @@ void Ejercicio2(int* arrayPrimos, int numero){
             acum = 0;
             posicion++;
         }
-        //cout << "num = " <<num << endl;
-        //cout << "acum = " <<acum << endl;
         if (num == 1)
             flag = true;
     }
@@ -133,3 +136,107 @@ void freeArray(int* array){
         delete[] array;
 }
 
+void Ejercicio3(){
+    vector<string> guerra;
+    int opcion = 0;
+    while (opcion <=0){
+        cout << "Ingrese su opcion: " <<endl
+            <<"1)Insertar guerra"<<endl
+            <<"2)Buscar guerra" <<endl
+            <<"3)Eliminar guerra" <<endl
+            <<"4)Listar guerras"<<endl;
+        cin >> opcion;
+    }
+    switch (opcion){
+        case 1:
+            {
+                stringstream c_guerra; //c_guerra = Contenido de una Guerra
+                cout << "Ingrese el codigo: ";
+                string codigo = "";
+                cin >> codigo;
+                cout << "Ingrese el nombre: ";
+                string nombre="";
+                getline(cin,nombre);
+                getline(cin, nombre);
+                cout << "Ingrese el año de inicio: ";
+                string anoInicio= "";
+                cin >> anoInicio;
+                cout << "Ingrese el año de fin: ";
+                string anoFin = "";
+                cin >> anoFin;
+                cout << "Cuanto paises participaron: ";
+                int numPais = 0;
+                cin >> numPais;
+                stringstream paises;
+                string pais;
+                for (int i = 0; i < numPais; i++){
+                    cout << "Ingrese un pais: ";
+                    cin >> pais;
+                    paises << pais; 
+                    if (i != numPais - 1)
+                        paises << ",";
+                }
+                cout << "Ingrese el continente: ";
+                string continente = "";
+                cin >> continente;
+                c_guerra << codigo << ";" << nombre << ";" << anoInicio << ";" << anoFin << ";" << paises.str()  << ";" << continente;
+                guerra.push_back(c_guerra.str());
+                cout << guerra.at(0);
+                break;
+            }
+        case 2:
+            {
+                cout << "Ingrese el codigo de la guerra: ";
+                string codigo = "";
+                cin >> codigo;
+                string codigoComp = "";
+                int posPunto = 0;
+                int posGuerra=  0;
+                for (int i = 0; i < guerra.size(); i++){
+                    for (int j = 0; j < guerra.at(i).size();i++){
+                        if (guerra.at(i).at(i) == ';')
+                            posPunto = j;
+                            j = guerra.at(i).size();
+                    } 
+                    codigoComp = guerra.at(i).substr(0,posPunto-1);
+                    if (codigo == codigoComp){
+                        posGuerra = i;
+                        i = guerra.size();
+                    }
+                }
+                break;
+            }
+    }
+}
+
+void imprimirGuerra(string guerra){
+    string codigo = "";
+    string nombre = "";
+    string anoInicio = "";
+    string anoFin = "";
+    string paises = "";
+    string continente= "";
+    int cont = 0;
+    stringstream temp;
+    for(int i = 0; i <= guerra.size();i++){
+        if (guerra.at(i) != ';'){
+            temp << guerra.at(i);
+        }
+        if (guerra.at(i) == ';'){
+            if (cont == 0)
+                codigo = temp.str();
+            if (cont == 1)
+                nombre = temp.str();
+            if (cont == 2)
+                anoInicio = temp.str();
+            if (cont == 3)
+                anoFin = temp.str();
+            if (cont == 4)
+                paises = temp.str();
+            if (cont == 5)
+                continente = temp.str();
+            cont++;
+            temp.str("");
+        }
+    }
+}
