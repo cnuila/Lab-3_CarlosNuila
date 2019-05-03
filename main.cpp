@@ -2,6 +2,7 @@
 using namespace std;
 
 void Ejercicio1(int a, int b);
+int* calculadoraPrimos();
 
 int main(){
     char respuesta = 'S';
@@ -32,6 +33,11 @@ int main(){
                 Ejercicio1(a,b);
                 break;
             }
+        case 2:
+            {
+                int* arrayPrimos = calculadoraPrimos();
+                break;
+            }
     }
     cout << "¿Desea volver a hacerlo[s/n]?: ";
     cin >>  respuesta;
@@ -48,4 +54,37 @@ void Ejercicio1(int a, int b){
         a = temp;
         Ejercicio1(a,b);
     }
+}
+
+int* calculadoraPrimos(){
+    int* temporal = new int[25];
+    temporal[0]=2;
+    temporal[1]=3;
+    temporal[2]=5;
+    temporal[3]=7;
+    temporal[4]=11;
+    temporal[5]=13;
+    temporal[6]=17;
+    temporal[7]=19;
+    temporal[8]=23;
+    temporal[9]=29;
+    temporal[10]=31;
+    temporal[11]=37;
+    temporal[12]=41;
+    temporal[13]=43;
+    temporal[14]=47;
+    temporal[15]=53;
+    temporal[16]=59;
+    temporal[17]=61;
+    temporal[18]=67;
+    temporal[19]=71;
+    temporal[20]=73;
+    temporal[21]=79;
+    temporal[22]=83;
+    temporal[23]=89;
+    temporal[24]=97;
+
+
+
+    return temporal
 }
