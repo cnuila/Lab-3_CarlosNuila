@@ -9,6 +9,7 @@ int* calculadoraPrimos();
 void Ejercicio2(int* arreglo, int numero);
 void freeArray(int* array);
 void Ejercicio3();
+int numPais = 0;
 
 int main(){
     char respuesta = 'S';
@@ -165,7 +166,7 @@ void Ejercicio3(){
                 string anoFin = "";
                 cin >> anoFin;
                 cout << "Cuanto paises participaron: ";
-                int numPais = 0;
+                numPais = 0;
                 cin >> numPais;
                 stringstream paises;
                 string pais;
@@ -239,4 +240,28 @@ void imprimirGuerra(string guerra){
             temp.str("");
         }
     }
+    stringstream pais;
+    vector<string> array_paises;
+    for (int i = 0; i < paises.size();i++){
+        if (paises.at(i) != ','){
+            pais << paises.at(i);
+        }
+        if (paises.at(i) == ','){
+            array_paises.push_back(pais.str());
+            pais.str("");
+        }
+    }
+    stringstream finalPais;
+    for (int i = 0; i < array_paises.size();i++){
+        finalPais << array_paises.at(i);
+        if (i == array_paises.size() -2){
+            finalPais << " y ";
+        } else {
+            if (i < array_paises.size() - 2){
+                finalPais << ",";
+            }
+        }
+    }
+
+    //cout << nombre << "llevada a cabo entre " << anoInicio << "y" << anoFin << " donde participaron " << finalPais << " en el continente de " << continente <<"." << endl;
 }
